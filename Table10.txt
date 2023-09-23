@@ -1,0 +1,104 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Thu Mar 23 15:25:15 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table  Table10(SINo number,Name varchar2(10));
+
+Table created.
+
+SQL> desc Table10;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SINO                                               NUMBER
+ NAME                                               VARCHAR2(10)
+
+SQL> insert into Table10 values(1,'Gskd');
+
+1 row created.
+
+SQL> insert into Table10 values(2,'Krishna');
+
+1 row created.
+
+SQL> insert into Table10 values(3,'SK');
+
+1 row created.
+
+SQL> insert into Table10 values(4,'SI');
+
+1 row created.
+
+
+SQL> select * from Table10;
+
+      SINO NAME
+---------- ----------
+         1 Gskd
+         2 Krishna
+         3 SK
+         4 SI
+
+SQL> savepoint sp1;
+
+Savepoint created.
+
+SQL> delete from Table10 where SINo=4;
+
+1 row deleted.
+
+SQL> select * from Table10;
+
+      SINO NAME
+---------- ----------
+         1 Gskd
+         2 Krishna
+         3 SK
+
+SQL> rollback to sp1;
+
+Rollback complete.
+
+SQL> select * from Table10;
+
+      SINO NAME
+---------- ----------
+         1 Gskd
+         2 Krishna
+         3 SK
+         4 SI
+
+SQL> insert into Table10 values(4,'SKK');
+
+1 row created.
+
+SQL> select * from Table10;
+
+      SINO NAME
+---------- ----------
+         1 Gskd
+         2 Krishna
+         3 SK
+         4 SI
+         4 SKK
+
+SQL> delete from Table10 where SINo=4;
+
+2 rows deleted.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from Table10;
+
+      SINO NAME
+---------- ----------
+         1 Gskd
+         2 Krishna
+         3 SK
+
+SQL>

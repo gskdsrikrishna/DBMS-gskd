@@ -1,0 +1,106 @@
+SQL*Plus: Release 10.2.0.1.0 - Production on Wed Mar 22 21:10:23 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table6(ID number,Name varchar2(10),Days number);
+
+Table created.
+
+SQL> desc Table6;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER
+ NAME                                               VARCHAR2(10)
+ DAYS                                               NUMBER
+
+SQL> insert into Table6 values(&ID,'&Name',&Days);
+Enter value for id: 1
+Enter value for name: Gskd
+Enter value for days: 99
+old   1: insert into Table6 values(&ID,'&Name',&Days)
+new   1: insert into Table6 values(1,'Gskd',99)
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for name: Vijay
+Enter value for days: 90
+old   1: insert into Table6 values(&ID,'&Name',&Days)
+new   1: insert into Table6 values(2,'Vijay',90)
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: Bhuvana
+Enter value for days: 98
+old   1: insert into Table6 values(&ID,'&Name',&Days)
+new   1: insert into Table6 values(3,'Bhuvana',98)
+
+1 row created.
+
+SQL> /
+Enter value for id: 4
+Enter value for name: Indu
+Enter value for days: 95
+old   1: insert into Table6 values(&ID,'&Name',&Days)
+new   1: insert into Table6 values(4,'Indu',95)
+
+1 row created.
+
+SQL> select * from Table6;
+
+        ID NAME             DAYS
+---------- ---------- ----------
+         1 Gskd               99
+         2 Vijay              90
+         3 Bhuvana            98
+         4 Indu               95
+
+SQL> alter table Table6 add(Age number);
+
+Table altered.
+
+SQL> alter table Table6 rename column Days to Day;
+
+Table altered.
+
+SQL> select * from Table6;
+
+        ID NAME              DAY        AGE
+---------- ---------- ---------- ----------
+         1 Gskd               99
+         2 Vijay              90
+         3 Bhuvana            98
+         4 Indu               95
+
+SQL> alter table Table6 drop(Age);
+
+Table altered.
+
+SQL> select * from Table6;
+
+        ID NAME              DAY
+---------- ---------- ----------
+         1 Gskd               99
+         2 Vijay              90
+         3 Bhuvana            98
+         4 Indu               95
+
+SQL> delete from Table6 where ID>2;
+
+2 rows deleted.
+
+SQL> select * from Table6;
+
+        ID NAME              DAY
+---------- ---------- ----------
+         1 Gskd               99
+         2 Vijay              90
+
+SQL>
+

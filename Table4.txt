@@ -1,0 +1,102 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Wed Mar 22 20:43:45 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table4(SI number,BankName varchar2(10),BankCity varchar2(10));
+
+Table created.
+
+SQL> desc Table4;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SI                                                 NUMBER
+ BANKNAME                                           VARCHAR2(10)
+ BANKCITY                                           VARCHAR2(10)
+
+SQL> alter table Table4 add(Name varchar2(10));
+
+Table altered.
+
+SQL> desc Table4;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SI                                                 NUMBER
+ BANKNAME                                           VARCHAR2(10)
+ BANKCITY                                           VARCHAR2(10)
+ NAME                                               VARCHAR2(10)
+
+SQL> alter table Table4 drop(Name);
+
+Table altered.
+
+SQL> desc Table4;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SI                                                 NUMBER
+ BANKNAME                                           VARCHAR2(10)
+ BANKCITY                                           VARCHAR2(10)
+
+SQL>  insert into Table4 values(&SI,'&BankName','&BankCity');
+Enter value for si: 1
+Enter value for bankname: UBI
+Enter value for bankcity: ADN
+old   1:  insert into Table4 values(&SI,'&BankName','&BankCity')
+new   1:  insert into Table4 values(1,'UBI','ADN')
+
+1 row created.
+
+SQL> /
+Enter value for si: 2
+Enter value for bankname: ICICI
+Enter value for bankcity: HYD
+old   1:  insert into Table4 values(&SI,'&BankName','&BankCity')
+new   1:  insert into Table4 values(2,'ICICI','HYD')
+
+1 row created.
+
+SQL> /
+Enter value for si: 3
+Enter value for bankname: SBI
+Enter value for bankcity: MH
+old   1:  insert into Table4 values(&SI,'&BankName','&BankCity')
+new   1:  insert into Table4 values(3,'SBI','MH')
+
+1 row created.
+
+SQL> select * from Table4;
+
+        SI BANKNAME   BANKCITY
+---------- ---------- ----------
+         1 UBI        ADN
+         2 ICICI      HYD
+         3 SBI        MH
+
+SQL> alter table Table4 rename column BankName to Bank;
+
+Table altered.
+
+SQL> select * from Table4;
+
+        SI BANK       BANKCITY
+---------- ---------- ----------
+         1 UBI        ADN
+         2 ICICI      HYD
+         3 SBI        MH
+
+SQL> alter table Table4 drop(BankCity);
+
+Table altered.
+
+SQL> select * from Table4;
+
+        SI BANK
+---------- ----------
+         1 UBI
+         2 ICICI
+         3 SBI
+
+SQL>

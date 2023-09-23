@@ -1,0 +1,137 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Fri Mar 24 18:40:10 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table14(Name varchar2(10),ID number,Salary number);
+
+Table created.
+
+SQL> desc Table14;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NAME                                               VARCHAR2(10)
+ ID                                                 NUMBER
+ SALARY                                             NUMBER
+
+SQL> insert into Table14 values('&Name',&ID,&Salary);
+Enter value for name: Bhuvana
+Enter value for id: 1
+Enter value for salary: 10000
+old   1: insert into Table14 values('&Name',&ID,&Salary)
+new   1: insert into Table14 values('Bhuvana',1,10000)
+
+1 row created.
+
+SQL> /
+Enter value for name: Indu
+Enter value for id: 1
+Enter value for salary: 9000
+old   1: insert into Table14 values('&Name',&ID,&Salary)
+new   1: insert into Table14 values('Indu',1,9000)
+
+1 row created.
+
+SQL> /
+Enter value for name: Gskd
+Enter value for id: 2
+Enter value for salary: 9000
+old   1: insert into Table14 values('&Name',&ID,&Salary)
+new   1: insert into Table14 values('Gskd',2,9000)
+
+1 row created.
+
+SQL> .
+SQL> /
+Enter value for name: Vijay
+Enter value for id: 2
+Enter value for salary: 8000
+old   1: insert into Table14 values('&Name',&ID,&Salary)
+new   1: insert into Table14 values('Vijay',2,8000)
+
+1 row created.
+
+SQL> select * from Table14;
+
+NAME               ID     SALARY
+---------- ---------- ----------
+Bhuvana             1      10000
+Indu                1       9000
+Gskd                2       9000
+Vijay               2       8000
+
+
+
+SQL> select Name,avg(Salary) from Table14 group by Name,ID having ID=1;
+
+NAME       AVG(SALARY)
+---------- -----------
+Indu              9000
+Bhuvana          10000
+
+SQL> select Name,Salary,ID from Table14 where(ID,Salary) in (select ID,min(Salary) from Table14 group by ID);
+
+NAME           SALARY         ID
+---------- ---------- ----------
+Indu             9000          1
+Vijay            8000          2
+
+SQL> select ID,count(*) from Table14 group by ID;
+
+        ID   COUNT(*)
+---------- ----------
+         1          2
+         2          2
+
+
+
+SQL> alter table Table14 add(Branch varchar2(10));
+
+Table altered.
+
+SQL> select * from Table14;
+
+NAME               ID     SALARY BRANCH
+---------- ---------- ---------- ----------
+Bhuvana             1      10000
+Indu                1       9000
+Gskd                2       9000
+Vijay               2       8000
+
+SQL> update Table14 set Branch='ECE' where ID=1;
+
+2 rows updated.
+
+SQL> update Table14 set Branch='CAI' where ID=2;
+
+2 rows updated.
+
+SQL> select Branch,count(*) from Table14 group by Branch;
+
+BRANCH       COUNT(*)
+---------- ----------
+CAI                 2
+ECE                 2
+
+SQL> select Name from Table14 where Name like 'B%' union select Name from Table14 where Name like 'I%';
+
+NAME
+----------
+Bhuvana
+Indu
+
+
+
+SQL> select Name from Table14 where Salary in (select max(Salary) from Table14 group by Salary having max(Salary)>=8000);
+
+NAME
+----------
+Bhuvana
+Indu
+Gskd
+Vijay
+
+SQL>

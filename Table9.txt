@@ -1,0 +1,97 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Thu Mar 23 14:50:39 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn Gskd
+Enter password:
+Connected.
+SQL> create table Table9(ID number,Name varchar2(10),Year number);
+
+Table created.
+
+SQL> desc Table9;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER
+ NAME                                               VARCHAR2(10)
+ YEAR                                               NUMBER
+
+SQL> insert into Table9 values(&ID,'&Name',&Year);
+Enter value for id: 1
+Enter value for name: Bhuvana
+Enter value for year: 2005
+old   1: insert into Table9 values(&ID,'&Name',&Year)
+new   1: insert into Table9 values(1,'Bhuvana',2005)
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for name: Indu
+Enter value for year: 2010
+old   1: insert into Table9 values(&ID,'&Name',&Year)
+new   1: insert into Table9 values(2,'Indu',2010)
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: Gskd
+Enter value for year: 2003
+old   1: insert into Table9 values(&ID,'&Name',&Year)
+new   1: insert into Table9 values(3,'Gskd',2003)
+
+1 row created.
+
+SQL> /
+Enter value for id: 4
+Enter value for name: Vijay
+Enter value for year: 2007
+old   1: insert into Table9 values(&ID,'&Name',&Year)
+new   1: insert into Table9 values(4,'Vijay',2007)
+
+1 row created.
+
+SQL> /
+Enter value for id: 5
+Enter value for name: Mahi
+Enter value for year: 2012
+old   1: insert into Table9 values(&ID,'&Name',&Year)
+new   1: insert into Table9 values(5,'Mahi',2012)
+
+1 row created.
+
+SQL> /
+Enter value for id: 6
+Enter value for name: Mani
+Enter value for year: 2015
+old   1: insert into Table9 values(&ID,'&Name',&Year)
+new   1: insert into Table9 values(6,'Mani',2015)
+
+1 row created.
+
+SQL> delete from Table9 where ID=6;
+
+1 row deleted.
+
+SQL> delete from Table9 where ID=5;
+
+1 row deleted.
+
+SQL> select * from Table9;
+
+        ID NAME             YEAR
+---------- ---------- ----------
+         1 Bhuvana          2005
+         2 Indu             2010
+         3 Gskd             2003
+         4 Vijay            2007
+
+SQL> alter table Table9 modify(ID number primary key);
+
+Table altered.
+
+SQL> alter table Table9 add foreign key(Name) references Name(ID);
+
+Table altered.

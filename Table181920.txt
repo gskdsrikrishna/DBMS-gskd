@@ -1,0 +1,244 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Fri Mar 24 19:45:10 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table18(SID number,Name varchar2(10),Rating number,Age number);
+
+Table created.
+
+SQL> desc Table18;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER
+ NAME                                               VARCHAR2(10)
+ RATING                                             NUMBER
+ AGE                                                NUMBER
+
+SQL> insert into Table18 values(&SID,'&Name',&Rating,&Age);
+Enter value for sid: 1
+Enter value for name: Bhumi
+Enter value for rating: 9
+Enter value for age: 25
+old   1: insert into Table18 values(&SID,'&Name',&Rating,&Age)
+new   1: insert into Table18 values(1,'Bhumi',9,25)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 2
+Enter value for name: Indu
+Enter value for rating: 9
+Enter value for age: 21
+old   1: insert into Table18 values(&SID,'&Name',&Rating,&Age)
+new   1: insert into Table18 values(2,'Indu',9,21)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 3
+Enter value for name: Gskd
+Enter value for rating: 27
+Enter value for age: 27
+old   1: insert into Table18 values(&SID,'&Name',&Rating,&Age)
+new   1: insert into Table18 values(3,'Gskd',27,27)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 4
+Enter value for name: Vijay
+Enter value for rating: 10
+Enter value for age: 22
+old   1: insert into Table18 values(&SID,'&Name',&Rating,&Age)
+new   1: insert into Table18 values(4,'Vijay',10,22)
+
+1 row created.
+
+SQL> select * from Table18;
+
+       SID NAME           RATING        AGE
+---------- ---------- ---------- ----------
+         1 Bhumi               9         25
+         2 Indu                9         21
+         3 Gskd               27         27
+         4 Vijay              10         22
+
+SQL> create table Table19(SID number,Name varchar2(10),Rating number,Age number);
+
+Table created.
+
+SQL> desc Table19;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER
+ NAME                                               VARCHAR2(10)
+ RATING                                             NUMBER
+ AGE                                                NUMBER
+
+SQL> insert into Table19 values(&SID,'&Name',&Rating,&Age);
+Enter value for sid: 1
+Enter value for name: Gskd
+Enter value for rating: 10
+Enter value for age: 19
+old   1: insert into Table19 values(&SID,'&Name',&Rating,&Age)
+new   1: insert into Table19 values(1,'Gskd',10,19)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 2
+Enter value for name: Indu
+Enter value for rating: 11
+Enter value for age: 13
+old   1: insert into Table19 values(&SID,'&Name',&Rating,&Age)
+new   1: insert into Table19 values(2,'Indu',11,13)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 3
+Enter value for name: Bhumi
+Enter value for rating: 12
+Enter value for age: 17
+old   1: insert into Table19 values(&SID,'&Name',&Rating,&Age)
+new   1: insert into Table19 values(3,'Bhumi',12,17)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 4
+Enter value for name: Vijay
+Enter value for rating: 13
+Enter value for age: 14
+old   1: insert into Table19 values(&SID,'&Name',&Rating,&Age)
+new   1: insert into Table19 values(4,'Vijay',13,14)
+
+1 row created.
+
+SQL> select * from Table19;
+
+       SID NAME           RATING        AGE
+---------- ---------- ---------- ----------
+         1 Gskd               10         19
+         2 Indu               11         13
+         3 Bhumi              12         17
+         4 Vijay              13         14
+
+SQL> create table Table20(SID number,Name varchar2(10),Color varchar2(10));
+
+Table created.
+
+SQL> desc Table20;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER
+ NAME                                               VARCHAR2(10)
+ COLOR                                              VARCHAR2(10)
+
+SQL> insert into Table20 values(&SID,'&Name','&Color');
+Enter value for sid: 1
+Enter value for name: Indu
+Enter value for color: White
+old   1: insert into Table20 values(&SID,'&Name','&Color')
+new   1: insert into Table20 values(1,'Indu','White')
+
+1 row created.
+
+SQL> /
+Enter value for sid: Bhuvana
+Enter value for name:
+Enter value for color:
+old   1: insert into Table20 values(&SID,'&Name','&Color')
+new   1: insert into Table20 values(Bhuvana,'','')
+insert into Table20 values(Bhuvana,'','')
+                           *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> /
+Enter value for sid: 2
+Enter value for name: Bhuvana
+Enter value for color: White
+old   1: insert into Table20 values(&SID,'&Name','&Color')
+new   1: insert into Table20 values(2,'Bhuvana','White')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 3
+Enter value for name: Gskd
+Enter value for color: WhiBla
+old   1: insert into Table20 values(&SID,'&Name','&Color')
+new   1: insert into Table20 values(3,'Gskd','WhiBla')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 4
+Enter value for name: Vijay
+Enter value for color: BlaBla
+old   1: insert into Table20 values(&SID,'&Name','&Color')
+new   1: insert into Table20 values(4,'Vijay','BlaBla')
+
+1 row created.
+
+SQL> select * from Table20;
+
+       SID NAME       COLOR
+---------- ---------- ----------
+         1 Indu       White
+         2 Bhuvana    White
+         3 Gskd       WhiBla
+         4 Vijay      BlaBla
+
+SQL> select r.SID,s.Name from Table18 r,Table19 s,Table20 b where s.SID=r.SID and r.SID=b.SID and b.Name='Gskd';
+
+       SID NAME
+---------- ----------
+         3 Bhumi
+
+SQL> select s.Rating,min(s.Age) from Table19 s where s.Age>=18 group by s.Rating having count(*)<2;
+
+    RATING MIN(S.AGE)
+---------- ----------
+        10         19
+
+SQL> select s.Rating,min(s.Age) from Table19 s where s.Age>=18 group by s.Rating having count(*)>2;
+
+no rows selected
+
+SQL> select s.Name,r.SID,r.Age from Table19 s,Table18 r where s.SID=r.SID;
+
+NAME              SID        AGE
+---------- ---------- ----------
+Gskd                1         25
+Indu                2         21
+Bhumi               3         27
+Vijay               4         22
+
+SQL> select Age from Table19 s where Name like 'b_%b';
+
+no rows selected
+
+SQL> select s.Name,b.Color from Table19 s,Table20 b,Table18 r where s.SID=r.SID and r.SID=b.SID and b.Color='White' order by s.Name asc;
+
+NAME       COLOR
+---------- ----------
+Gskd       White
+Indu       White
+
+SQL> select s.Rating,min(s.Age) from Table19 s group by Rating;
+
+    RATING MIN(S.AGE)
+---------- ----------
+        11         13
+        13         14
+        10         19
+        12         17
+
+SQL>

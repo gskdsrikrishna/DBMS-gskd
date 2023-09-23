@@ -1,0 +1,150 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Wed Mar 22 20:53:31 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table5(ID number,Name varchar2(10),Rating number);
+
+Table created.
+
+SQL> alter table Table5 add(Age number);
+
+Table altered.
+
+SQL> desc Table5;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER
+ NAME                                               VARCHAR2(10)
+ RATING                                             NUMBER
+ AGE                                                NUMBER
+
+SQL> insert into Table5 values(&ID,'&Name',&Rating,&Age);
+Enter value for id: 1
+Enter value for name: Gskd
+Enter value for rating: 9
+Enter value for age: 19
+old   1: insert into Table5 values(&ID,'&Name',&Rating,&Age)
+new   1: insert into Table5 values(1,'Gskd',9,19)
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for name: Vijay
+Enter value for rating: 7
+Enter value for age: 14
+old   1: insert into Table5 values(&ID,'&Name',&Rating,&Age)
+new   1: insert into Table5 values(2,'Vijay',7,14)
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: Bhuvana
+Enter value for rating: 9
+Enter value for age: 17
+old   1: insert into Table5 values(&ID,'&Name',&Rating,&Age)
+new   1: insert into Table5 values(3,'Bhuvana',9,17)
+
+1 row created.
+
+SQL> /
+Enter value for id: 4
+Enter value for name: Indu
+Enter value for rating: 8
+Enter value for age: 13
+old   1: insert into Table5 values(&ID,'&Name',&Rating,&Age)
+new   1: insert into Table5 values(4,'Indu',8,13)
+
+1 row created.
+
+SQL> select * from Table5;
+
+        ID NAME           RATING        AGE
+---------- ---------- ---------- ----------
+         1 Gskd                9         19
+         2 Vijay               7         14
+         3 Bhuvana             9         17
+         4 Indu                8         13
+
+SQL> delete from Table5 where Age<15;
+
+2 rows deleted.
+
+SQL> select * from Table5;
+
+        ID NAME           RATING        AGE
+---------- ---------- ---------- ----------
+         1 Gskd                9         19
+         3 Bhuvana             9         17
+
+SQL> update Table5 set Rating=8 where Age=17;
+
+1 row updated.
+
+SQL> select * from Table5;
+
+        ID NAME           RATING        AGE
+---------- ---------- ---------- ----------
+         1 Gskd                9         19
+         3 Bhuvana             8         17
+
+SQL> insert into Table5(NULL,NULL,NULL,NULL);
+insert into Table5(NULL,NULL,NULL,NULL)
+                   *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into Table5(2,'Vijay',,14);
+insert into Table5(2,'Vijay',,14)
+                   *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into Table5(2 number,'Vijay' varchar2(10),,14 number);
+insert into Table5(2 number,'Vijay' varchar2(10),,14 number)
+                   *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into Table5 values(NULL,NULL,NULL,NULL);
+
+1 row created.
+
+SQL> select * from Table5;
+
+        ID NAME           RATING        AGE
+---------- ---------- ---------- ----------
+         1 Gskd                9         19
+         3 Bhuvana             8         17
+
+
+SQL> desc Table5;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER
+ NAME                                               VARCHAR2(10)
+ RATING                                             NUMBER
+ AGE                                                NUMBER
+
+SQL> insert into Table5 values(2,'Vijay',NULL,NULL);
+
+1 row created.
+
+SQL> select * from Table5;
+
+        ID NAME           RATING        AGE
+---------- ---------- ---------- ----------
+         1 Gskd                9         19
+         3 Bhuvana             8         17
+
+         2 Vijay
+
+SQL>

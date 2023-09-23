@@ -1,0 +1,156 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Wed Mar 22 19:50:18 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table2(DeptNo number,DeptName varchar2(10),HOD varchar2(10));
+
+Table created.
+
+SQL> desc Table2
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                             NUMBER
+ DEPTNAME                                           VARCHAR2(10)
+ HOD                                                VARCHAR2(10)
+
+SQL> alter table Table2 add(Designation varchar2(10));
+
+Table altered.
+
+SQL> desc Table2
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                             NUMBER
+ DEPTNAME                                           VARCHAR2(10)
+ HOD                                                VARCHAR2(10)
+ DESIGNATION                                        VARCHAR2(10)
+
+SQL> insert into Table2 values(&DeptNo,'&DeptName','&HOD','&Designation');
+Enter value for deptno: 1
+Enter value for deptname: CSE
+Enter value for hod: Gskd
+Enter value for designation: Gskd
+old   1: insert into Table2 values(&DeptNo,'&DeptName','&HOD','&Designation')
+new   1: insert into Table2 values(1,'CSE','Gskd','Gskd')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 2
+Enter value for deptname: ECE
+Enter value for hod: Bhuvana
+Enter value for designation: Bhumika
+old   1: insert into Table2 values(&DeptNo,'&DeptName','&HOD','&Designation')
+new   1: insert into Table2 values(2,'ECE','Bhuvana','Bhumika')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 3
+Enter value for deptname: CAI
+Enter value for hod: Vijay
+Enter value for designation: VK
+old   1: insert into Table2 values(&DeptNo,'&DeptName','&HOD','&Designation')
+new   1: insert into Table2 values(3,'CAI','Vijay','VK')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 4
+Enter value for deptname: CDS
+Enter value for hod: Indu
+Enter value for designation: IND
+old   1: insert into Table2 values(&DeptNo,'&DeptName','&HOD','&Designation')
+new   1: insert into Table2 values(4,'CDS','Indu','IND')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 5
+Enter value for deptname: MECH
+Enter value for hod: Namitha
+Enter value for designation: NMT
+old   1: insert into Table2 values(&DeptNo,'&DeptName','&HOD','&Designation')
+new   1: insert into Table2 values(5,'MECH','Namitha','NMT')
+
+1 row created.
+
+SQL> select * from Table2;
+
+    DEPTNO DEPTNAME   HOD        DESIGNATIO
+---------- ---------- ---------- ----------
+         1 CSE        Gskd       Gskd
+         2 ECE        Bhuvana    Bhumika
+         3 CAI        Vijay      VK
+         4 CDS        Indu       IND
+         5 MECH       Namitha    NMT
+
+SQL> select DeptNo,DeptName from Table2 group by DeptNo,DeptName;
+
+    DEPTNO DEPTNAME
+---------- ----------
+         1 CSE
+         4 CDS
+         2 ECE
+         5 MECH
+         3 CAI
+
+SQL> update Table2 set Designation='NT' where DeptNo=5;
+
+1 row updated.
+
+SQL> select * from Table2;
+
+    DEPTNO DEPTNAME   HOD        DESIGNATIO
+---------- ---------- ---------- ----------
+         1 CSE        Gskd       Gskd
+         2 ECE        Bhuvana    Bhumika
+         3 CAI        Vijay      VK
+         4 CDS        Indu       IND
+         5 MECH       Namitha    NT
+
+SQL> insert into Table2 values(&DeptNo,'&DeptName','&HOD','&Designation');
+Enter value for deptno: 6
+Enter value for deptname: CE
+Enter value for hod: Mani
+Enter value for designation: MS
+old   1: insert into Table2 values(&DeptNo,'&DeptName','&HOD','&Designation')
+new   1: insert into Table2 values(6,'CE','Mani','MS')
+
+1 row created.
+
+SQL> select * from Table2;
+
+    DEPTNO DEPTNAME   HOD        DESIGNATIO
+---------- ---------- ---------- ----------
+         1 CSE        Gskd       Gskd
+         2 ECE        Bhuvana    Bhumika
+         3 CAI        Vijay      VK
+         4 CDS        Indu       IND
+         5 MECH       Namitha    NT
+         6 CE         Mani       MS
+
+6 rows selected.
+
+SQL> alter table Table2 drop(Designation);
+
+Table altered.
+
+SQL> select * from Table2;
+
+    DEPTNO DEPTNAME   HOD
+---------- ---------- ----------
+         1 CSE        Gskd
+         2 ECE        Bhuvana
+         3 CAI        Vijay
+         4 CDS        Indu
+         5 MECH       Namitha
+         6 CE         Mani
+
+6 rows selected.
+
+SQL>

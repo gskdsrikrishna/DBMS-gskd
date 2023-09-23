@@ -1,0 +1,125 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Thu Mar 23 16:25:05 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create user Bhuvana identified by bhumi;
+
+User created.
+
+SQL> create table Table12(RollNo number,StuName varchar2(10));
+
+Table created.
+
+SQL> grant connect,resource,dba to Bhuvana;
+
+Grant succeeded.
+
+SQL> grant insert,select,update,delete on Table12 to Bhuvana;
+
+Grant succeeded.
+
+SQL> grant unlimited tablespace to Bhuvana;
+
+Grant succeeded.
+
+SQL> conn Bhuvana
+Enter password:
+Connected.
+SQL*Plus: Release 10.2.0.1.0 - Production on Thu Mar 23 16:31:20 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> desc Table12;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER
+ STUNAME                                            VARCHAR2(10)
+
+SQL> insert into Table12 values(1,'Gskd');
+
+1 row created.
+
+SQL> insert into Table12 values(2,'Indu');
+
+1 row created.
+
+SQL> insert into Table12 values(3,'Bhuvana');
+
+1 row created.
+
+SQL> insert into Table12 values(4,'Vijay');
+
+1 row created.
+
+SQL> select * from Table12;
+
+    ROLLNO STUNAME
+---------- ----------
+         1 Gskd
+         2 Indu
+         3 Bhuvana
+         4 Vijay
+
+SQL> alter table Table12 rename column StuName to Name;
+
+Table altered.
+
+SQL> desc Table12;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER
+ NAME                                               VARCHAR2(10)
+
+SQL> delete from Table12 where RollNo=4;
+
+1 row deleted.
+
+SQL> select * from Table12;
+
+    ROLLNO NAME
+---------- ----------
+         1 Gskd
+         2 Indu
+         3 Bhuvana
+
+SQL> savepoint sp1;
+
+Savepoint created.
+
+SQL> select * from Table12;
+
+    ROLLNO NAME
+---------- ----------
+         1 Gskd
+         2 Indu
+         3 Bhuvana
+
+SQL> alter table Table12 modify(RollNo number primary key,Name varchar2(10) not null);
+
+Table altered.
+
+SQL> describe Table12;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                    NOT NULL NUMBER
+ NAME                                      NOT NULL VARCHAR2(10)
+
+
+SQL> alter table Table12 modify Name varchar2(10) null;
+
+Table altered.
+
+SQL> desc Table12;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                    NOT NULL NUMBER
+ NAME                                               VARCHAR2(10)
+
+SQL>

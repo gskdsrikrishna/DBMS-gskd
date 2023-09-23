@@ -1,0 +1,114 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Fri Mar 24 19:24:23 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table16(SI number,Name varchar2(10),Age number);
+
+Table created.
+
+SQL> desc Table16;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SI                                                 NUMBER
+ NAME                                               VARCHAR2(10)
+ AGE                                                NUMBER
+
+SQL> insert into Table16 values(&SI,'&Name',&Age);
+Enter value for si: 1
+Enter value for name: Bhuvana
+Enter value for age: 17
+old   1: insert into Table16 values(&SI,'&Name',&Age)
+new   1: insert into Table16 values(1,'Bhuvana',17)
+
+1 row created.
+
+SQL> /
+Enter value for si: 2
+Enter value for name: Indu
+Enter value for age: 13
+old   1: insert into Table16 values(&SI,'&Name',&Age)
+new   1: insert into Table16 values(2,'Indu',13)
+
+1 row created.
+
+SQL> /
+Enter value for si: 3
+Enter value for name: Gskd
+Enter value for age: 19
+old   1: insert into Table16 values(&SI,'&Name',&Age)
+new   1: insert into Table16 values(3,'Gskd',19)
+
+1 row created.
+
+SQL> /
+Enter value for si: 4
+Enter value for name: Vijay
+Enter value for age: 15
+old   1: insert into Table16 values(&SI,'&Name',&Age)
+new   1: insert into Table16 values(4,'Vijay',15)
+
+1 row created.
+
+SQL> select * from Table16;
+
+        SI NAME              AGE
+---------- ---------- ----------
+         1 Bhuvana            17
+         2 Indu               13
+         3 Gskd               19
+         4 Vijay              15
+
+SQL> select SI||Name "Concatenation" from Table16;
+
+Concatenation
+--------------------------------------------------
+1Bhuvana
+2Indu
+3Gskd
+4Vijay
+
+SQL> select Name,Age,(0.15)*Age as riseinsal from Table16;
+
+NAME              AGE  RISEINSAL
+---------- ---------- ----------
+Bhuvana            17       2.55
+Indu               13       1.95
+Gskd               19       2.85
+Vijay              15       2.25
+
+SQL> select Name,Age,SI from Table16 where Age in(select min(Age) from Table16 group by SI);
+
+NAME              AGE         SI
+---------- ---------- ----------
+Bhuvana            17          1
+Indu               13          2
+Gskd               19          3
+Vijay              15          4
+
+SQL> select SI,avg(Age) from Table16 group by SI;
+
+        SI   AVG(AGE)
+---------- ----------
+         1         17
+         2         13
+         4         15
+         3         19
+
+SQL> select SI,avg(Age) from Table16 group by SI having count(*)>2;
+
+no rows selected
+
+SQL> select SI,avg(Age) from Table16 group by SI having count(*)<2;
+
+        SI   AVG(AGE)
+---------- ----------
+         1         17
+         2         13
+         4         15
+         3         19
+
+SQL>

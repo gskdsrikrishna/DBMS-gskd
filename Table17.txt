@@ -1,0 +1,127 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Fri Mar 24 19:35:10 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table17(ID number,Name varchar2(10),Class number,School varchar2(10));
+
+Table created.
+
+SQL> desc Table17;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER
+ NAME                                               VARCHAR2(10)
+ CLASS                                              NUMBER
+ SCHOOL                                             VARCHAR2(10)
+
+SQL> insert into Table17 values(&ID,'&Name',&Class,&School);
+Enter value for id: 1
+Enter value for name: Bhuvana
+Enter value for class: 12
+Enter value for school: Govt
+old   1: insert into Table17 values(&ID,'&Name',&Class,&School)
+new   1: insert into Table17 values(1,'Bhuvana',12,Govt)
+insert into Table17 values(1,'Bhuvana',12,Govt)
+                                          *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into Table17 values(&ID,'&Name',&Class,'&School');
+Enter value for id: 1
+Enter value for name: Bhuvana
+Enter value for class: 12
+Enter value for school: Govt
+old   1: insert into Table17 values(&ID,'&Name',&Class,'&School')
+new   1: insert into Table17 values(1,'Bhuvana',12,'Govt')
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for name: Indu
+Enter value for class: 7
+Enter value for school: MPUP
+old   1: insert into Table17 values(&ID,'&Name',&Class,'&School')
+new   1: insert into Table17 values(2,'Indu',7,'MPUP')
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: Gskd
+Enter value for class: 14
+Enter value for school: SJCET
+old   1: insert into Table17 values(&ID,'&Name',&Class,'&School')
+new   1: insert into Table17 values(3,'Gskd',14,'SJCET')
+
+1 row created.
+
+SQL> /
+Enter value for id: 4
+Enter value for name: Vijay
+Enter value for class: 9
+Enter value for school: ZPHS
+old   1: insert into Table17 values(&ID,'&Name',&Class,'&School')
+new   1: insert into Table17 values(4,'Vijay',9,'ZPHS')
+
+1 row created.
+
+SQL> select * from Table17;
+
+        ID NAME            CLASS SCHOOL
+---------- ---------- ---------- ----------
+         1 Bhuvana            12 Govt
+         2 Indu                7 MPUP
+         3 Gskd               14 SJCET
+         4 Vijay               9 ZPHS
+
+SQL> select count(*) from Table17 where ID=3;
+
+  COUNT(*)
+----------
+         1
+
+SQL> select min(Class) from Table17 where School='MPUP';
+
+MIN(CLASS)
+----------
+         7
+
+SQL> select min(Class),max(Class),avg(Class) from Table17;
+
+MIN(CLASS) MAX(CLASS) AVG(CLASS)
+---------- ---------- ----------
+         7         14       10.5
+
+SQL> select School,min(Class),max(Class) from Table17 group by School;
+
+SCHOOL     MIN(CLASS) MAX(CLASS)
+---------- ---------- ----------
+SJCET              14         14
+ZPHS                9          9
+Govt               12         12
+MPUP                7          7
+
+SQL> select Name from Table17 order by Name desc;
+
+NAME
+----------
+Vijay
+Indu
+Gskd
+Bhuvana
+
+SQL> select ID,Name from Table17 order by ID asc,Name desc;
+
+        ID NAME
+---------- ----------
+         1 Bhuvana
+         2 Indu
+         3 Gskd
+         4 Vijay
+

@@ -1,0 +1,152 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Fri Mar 24 18:19:46 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table13(EID number,EName varchar2(10),Age number,Salary number);
+
+Table created.
+
+SQL> desc Table13;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER
+ ENAME                                              VARCHAR2(10)
+ AGE                                                NUMBER
+ SALARY                                             NUMBER
+
+
+
+SQL> insert into Table13 values(&EID,'&EName',&Age,&Salary);
+Enter value for eid: 1
+Enter value for ename: Gskd
+Enter value for age: 19
+Enter value for salary: 9000
+old   1: insert into Table13 values(&EID,'&EName',&Age,&Salary)
+new   1: insert into Table13 values(1,'Gskd',19,9000)
+
+1 row created.
+
+SQL> /
+Enter value for eid: 2
+Enter value for ename: Bhuvana
+Enter value for age: 17
+Enter value for salary: 8000
+old   1: insert into Table13 values(&EID,'&EName',&Age,&Salary)
+new   1: insert into Table13 values(2,'Bhuvana',17,8000)
+
+1 row created.
+
+SQL> /
+Enter value for eid: 3
+Enter value for ename: Indu
+Enter value for age: 13
+Enter value for salary: 7000
+old   1: insert into Table13 values(&EID,'&EName',&Age,&Salary)
+new   1: insert into Table13 values(3,'Indu',13,7000)
+
+1 row created.
+
+SQL> /
+Enter value for eid: 4
+Enter value for ename: Chinna
+Enter value for age: 19
+Enter value for salary: 6000
+old   1: insert into Table13 values(&EID,'&EName',&Age,&Salary)
+new   1: insert into Table13 values(4,'Chinna',19,6000)
+
+1 row created.
+
+SQL> /
+Enter value for eid: 5
+Enter value for ename: Vijay
+Enter value for age: 15
+Enter value for salary: 8000
+old   1: insert into Table13 values(&EID,'&EName',&Age,&Salary)
+new   1: insert into Table13 values(5,'Vijay',15,8000)
+
+1 row created.
+
+SQL> select count(EName) from Table13;
+
+COUNT(ENAME)
+------------
+           5
+
+SQL> select max(age) from Table13;
+
+  MAX(AGE)
+----------
+        19
+
+SQL> select min(age) from Table13;
+
+  MIN(AGE)
+----------
+        13
+
+SQL> select sum(Salary) from Table13;
+
+SUM(SALARY)
+-----------
+      38000
+
+SQL> select avg(Salary) from Table13;
+
+AVG(SALARY)
+-----------
+       7600
+
+SQL> create view A as select Age from Table13 where Age<18;
+
+View created.
+
+SQL> select * from A;
+
+       AGE
+----------
+        17
+        13
+        15
+
+SQL> select Salary from Table13 group by Salary;
+
+    SALARY
+----------
+      9000
+      8000
+      6000
+      7000
+
+SQL> select EName,Salary from Table13 order by Salary;
+
+ENAME          SALARY
+---------- ----------
+Chinna           6000
+Indu             7000
+Vijay            8000
+Bhuvana          8000
+Gskd             9000
+
+SQL> select EName,Salary from Table13 order by Salary desc;
+
+ENAME          SALARY
+---------- ----------
+Gskd             9000
+Bhuvana          8000
+Vijay            8000
+Indu             7000
+Chinna           6000
+
+SQL> select EName,Salary from Table13 where Age<18 group by EName,Salary having Salary<9000;
+
+ENAME          SALARY
+---------- ----------
+Vijay            8000
+Indu             7000
+Bhuvana          8000
+
+SQL>

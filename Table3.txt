@@ -1,0 +1,151 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Wed Mar 22 20:06:49 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table3(SINo number,CustName varchar2(10),CustCity varchar2(10));
+
+Table created.
+
+SQL> desc Table3
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SINO                                               NUMBER
+ CUSTNAME                                           VARCHAR2(10)
+ CUSTCITY                                           VARCHAR2(10)
+
+SQL> insert into Table3 values(&SINo,'&CustName','&CustCity');
+Enter value for sino: 1
+Enter value for custname: Gskd
+Enter value for custcity: NewYork
+old   1: insert into Table3 values(&SINo,'&CustName','&CustCity')
+new   1: insert into Table3 values(1,'Gskd','NewYork')
+
+1 row created.
+
+SQL> /
+Enter value for sino: 2
+Enter value for custname: Vijay
+Enter value for custcity: America
+old   1: insert into Table3 values(&SINo,'&CustName','&CustCity')
+new   1: insert into Table3 values(2,'Vijay','America')
+
+1 row created.
+
+SQL> /
+Enter value for sino: 3
+Enter value for custname: Bhuvana
+Enter value for custcity: California
+old   1: insert into Table3 values(&SINo,'&CustName','&CustCity')
+new   1: insert into Table3 values(3,'Bhuvana','California')
+
+1 row created.
+
+SQL> /
+Enter value for sino: 4
+Enter value for custname: Indu
+Enter value for custcity: India
+old   1: insert into Table3 values(&SINo,'&CustName','&CustCity')
+new   1: insert into Table3 values(4,'Indu','India')
+
+1 row created.
+
+SQL> /
+Enter value for sino: 5
+Enter value for custname: Maheswari
+Enter value for custcity: London
+old   1: insert into Table3 values(&SINo,'&CustName','&CustCity')
+new   1: insert into Table3 values(5,'Maheswari','London')
+
+1 row created.
+
+SQL> select * from Table3;
+
+      SINO CUSTNAME   CUSTCITY
+---------- ---------- ----------
+         1 Gskd       NewYork
+         2 Vijay      America
+         3 Bhuvana    California
+         4 Indu       India
+         5 Maheswari  London
+
+SQL> alter table Table3 add(Salary number);
+
+Table altered.
+
+SQL> desc Table3;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SINO                                               NUMBER
+ CUSTNAME                                           VARCHAR2(10)
+ CUSTCITY                                           VARCHAR2(10)
+ SALARY                                             NUMBER
+
+SQL> alter table Table3 drop Salary;
+alter table Table3 drop Salary
+                        *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> alter table Table3 drop Salary;
+alter table Table3 drop Salary
+                        *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> alter table Table3 drop(Salary);
+
+Table altered.
+
+SQL> select * from Table3;
+
+      SINO CUSTNAME   CUSTCITY
+---------- ---------- ----------
+         1 Gskd       NewYork
+         2 Vijay      America
+         3 Bhuvana    California
+         4 Indu       India
+         5 Maheswari  London
+
+SQL> insert into Table3 values(&SINo,'&CustName','&CustCity');
+Enter value for sino: 6
+Enter value for custname: SI
+Enter value for custcity: ADN
+old   1: insert into Table3 values(&SINo,'&CustName','&CustCity')
+new   1: insert into Table3 values(6,'SI','ADN')
+
+1 row created.
+
+SQL> select * from Table3;
+
+      SINO CUSTNAME   CUSTCITY
+---------- ---------- ----------
+         1 Gskd       NewYork
+         2 Vijay      America
+         3 Bhuvana    California
+         4 Indu       India
+         5 Maheswari  London
+         6 SI         ADN
+
+6 rows selected.
+
+SQL> delete from Table3 where CustCity='ADN';
+
+1 row deleted.
+
+SQL> select * from Table3;
+
+      SINO CUSTNAME   CUSTCITY
+---------- ---------- ----------
+         1 Gskd       NewYork
+         2 Vijay      America
+         3 Bhuvana    California
+         4 Indu       India
+         5 Maheswari  London
+
+SQL>

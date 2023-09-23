@@ -1,0 +1,184 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Wed Mar 22 15:29:46 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn
+Enter user-name: syste,
+Enter password:
+ERROR:
+ORA-01005: null password given; logon denied
+
+
+SQL>
+SQL> system
+SP2-0042: unknown command "system" - rest of line ignored.
+SQL> conn
+Enter user-name: system
+Enter password:
+Connected.
+SQL> create table Table1(EmpNo number,EmpName varchar2(10),Job varchar2(10),ID number,Salary number);
+
+Table created.
+
+SQL> desc Table1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER
+ EMPNAME                                            VARCHAR2(10)
+ JOB                                                VARCHAR2(10)
+ ID                                                 NUMBER
+ SALARY                                             NUMBER
+
+SQL> alter table Table1 add(PhoneNo number);
+
+Table altered.
+
+SQL> desc Table1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER
+ EMPNAME                                            VARCHAR2(10)
+ JOB                                                VARCHAR2(10)
+ ID                                                 NUMBER
+ SALARY                                             NUMBER
+ PHONENO                                            NUMBER
+
+SQL> insert into Table1 values(&EmpNo,'&EmpName','&Job',&ID,&Salary,&PhoneNo);
+Enter value for empno: 1
+Enter value for empname: Gskd
+Enter value for job: CEO
+Enter value for id: 1001
+Enter value for salary: 200000
+Enter value for phoneno: 7672043564
+old   1: insert into Table1 values(&EmpNo,'&EmpName','&Job',&ID,&Salary,&PhoneNo)
+new   1: insert into Table1 values(1,'Gskd','CEO',1001,200000,7672043564)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 2
+Enter value for empname: Vijay
+Enter value for job: PA
+Enter value for id: 1002
+Enter value for salary: 20000
+Enter value for phoneno: 6302513821
+old   1: insert into Table1 values(&EmpNo,'&EmpName','&Job',&ID,&Salary,&PhoneNo)
+new   1: insert into Table1 values(2,'Vijay','PA',1002,20000,6302513821)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 3
+Enter value for empname: Bhuvana
+Enter value for job: Sub CEO
+Enter value for id: 2001
+Enter value for salary: 150000
+Enter value for phoneno: 8142834230
+old   1: insert into Table1 values(&EmpNo,'&EmpName','&Job',&ID,&Salary,&PhoneNo)
+new   1: insert into Table1 values(3,'Bhuvana','Sub CEO',2001,150000,8142834230)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 4
+Enter value for empname: Indu
+Enter value for job: PA
+Enter value for id: 2002
+Enter value for salary: 20000
+Enter value for phoneno: 8297980915
+old   1: insert into Table1 values(&EmpNo,'&EmpName','&Job',&ID,&Salary,&PhoneNo)
+new   1: insert into Table1 values(4,'Indu','PA',2002,20000,8297980915)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 5
+Enter value for empname: Maheswari
+Enter value for job: PA1
+Enter value for id: 3001
+Enter value for salary: 250000
+Enter value for phoneno: 8688671521
+old   1: insert into Table1 values(&EmpNo,'&EmpName','&Job',&ID,&Salary,&PhoneNo)
+new   1: insert into Table1 values(5,'Maheswari','PA1',3001,250000,8688671521)
+
+1 row created.
+
+SQL> select * from Table1;
+
+     EMPNO EMPNAME    JOB                ID     SALARY    PHONENO
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Gskd       CEO              1001     200000 7672043564
+         2 Vijay      PA               1002      20000 6302513821
+         3 Bhuvana    Sub CEO          2001     150000 8142834230
+         4 Indu       PA               2002      20000 8297980915
+         5 Maheswari  PA1              3001     250000 8688671521
+
+SQL> update Table1 set Job='Admin' where EmpNo=5;
+
+1 row updated.
+
+SQL> select * from Table1;
+
+     EMPNO EMPNAME    JOB                ID     SALARY    PHONENO
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Gskd       CEO              1001     200000 7672043564
+         2 Vijay      PA               1002      20000 6302513821
+         3 Bhuvana    Sub CEO          2001     150000 8142834230
+         4 Indu       PA               2002      20000 8297980915
+         5 Maheswari  Admin            3001     250000 8688671521
+
+SQL> alter table Table1 rename column EmpName to Name;
+
+Table altered.
+
+SQL> select * from Table1;
+
+     EMPNO NAME       JOB                ID     SALARY    PHONENO
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Gskd       CEO              1001     200000 7672043564
+         2 Vijay      PA               1002      20000 6302513821
+         3 Bhuvana    Sub CEO          2001     150000 8142834230
+         4 Indu       PA               2002      20000 8297980915
+         5 Maheswari  Admin            3001     250000 8688671521
+
+SQL> insert into Table1 values(&EmpNo,'&EmpName','&Job',&ID,&Salary,&PhoneNo);
+Enter value for empno: 6
+Enter value for empname: Namitha
+Enter value for job: PA
+Enter value for id: 3002
+Enter value for salary: 20000
+Enter value for phoneno: 7286093833
+old   1: insert into Table1 values(&EmpNo,'&EmpName','&Job',&ID,&Salary,&PhoneNo)
+new   1: insert into Table1 values(6,'Namitha','PA',3002,20000,7286093833)
+
+1 row created.
+
+SQL> select * from Table1;
+
+     EMPNO NAME       JOB                ID     SALARY    PHONENO
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Gskd       CEO              1001     200000 7672043564
+         2 Vijay      PA               1002      20000 6302513821
+         3 Bhuvana    Sub CEO          2001     150000 8142834230
+         4 Indu       PA               2002      20000 8297980915
+         5 Maheswari  Admin            3001     250000 8688671521
+         6 Namitha    PA               3002      20000 7286093833
+
+6 rows selected.
+
+SQL> delete Table1 where EmpNo=6;
+
+1 row deleted.
+
+SQL> select * from Table1;
+
+     EMPNO NAME       JOB                ID     SALARY    PHONENO
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Gskd       CEO              1001     200000 7672043564
+         2 Vijay      PA               1002      20000 6302513821
+         3 Bhuvana    Sub CEO          2001     150000 8142834230
+         4 Indu       PA               2002      20000 8297980915
+         5 Maheswari  Admin            3001     250000 8688671521
+
+SQL>

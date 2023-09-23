@@ -1,0 +1,114 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Thu Mar 23 14:41:33 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn Gskd
+Enter password:
+Connected.
+SQL> create table Table8(SINo number,Name varchar2(10),Location varchar2(10));
+
+Table created.
+
+SQL> desc Table8;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SINO                                               NUMBER
+ NAME                                               VARCHAR2(10)
+ LOCATION                                           VARCHAR2(10)
+
+SQL> insert into Table8 values(&SINo,'&Name','&Locarion');
+Enter value for sino: 1
+Enter value for name: Bhuvana
+Enter value for locarion: CPL
+old   1: insert into Table8 values(&SINo,'&Name','&Locarion')
+new   1: insert into Table8 values(1,'Bhuvana','CPL')
+
+1 row created.
+
+SQL> /
+Enter value for sino: 2
+Enter value for name: Indu
+Enter value for locarion: CPL
+old   1: insert into Table8 values(&SINo,'&Name','&Locarion')
+new   1: insert into Table8 values(2,'Indu','CPL')
+
+1 row created.
+
+SQL> /
+Enter value for sino: 3
+Enter value for name: Gskd
+Enter value for locarion: CPL
+old   1: insert into Table8 values(&SINo,'&Name','&Locarion')
+new   1: insert into Table8 values(3,'Gskd','CPL')
+
+1 row created.
+
+SQL> /
+Enter value for sino: 4
+Enter value for name: Vijay
+Enter value for locarion: ADN
+old   1: insert into Table8 values(&SINo,'&Name','&Locarion')
+new   1: insert into Table8 values(4,'Vijay','ADN')
+
+1 row created.
+
+SQL> select * from Table8;
+
+      SINO NAME       LOCATION
+---------- ---------- ----------
+         1 Bhuvana    CPL
+         2 Indu       CPL
+         3 Gskd       CPL
+         4 Vijay      ADN
+
+SQL> alter table Table8 modify(SINo number unique,Location varchar2(10) not null);
+
+Table altered.
+
+SQL> desc Table8;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SINO                                               NUMBER
+ NAME                                               VARCHAR2(10)
+ LOCATION                                  NOT NULL VARCHAR2(10)
+
+SQL> insert into Table8 values(&SINo,'&Name','&Locarion');
+Enter value for sino: 1
+Enter value for name: Gskd
+Enter value for locarion: HYD
+old   1: insert into Table8 values(&SINo,'&Name','&Locarion')
+new   1: insert into Table8 values(1,'Gskd','HYD')
+insert into Table8 values(1,'Gskd','HYD')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (GSKD.SYS_C003997) violated
+
+
+SQL> insert into Table8 values(5,null,'HYD');
+
+1 row created.
+
+SQL> select * from Table8;
+
+      SINO NAME       LOCATION
+---------- ---------- ----------
+         1 Bhuvana    CPL
+         2 Indu       CPL
+         3 Gskd       CPL
+         4 Vijay      ADN
+         5            HYD
+
+SQL> delete from Table8 where SINo=5;
+
+1 row deleted.
+
+
+SQL> insert into Table8 values(5,'SI',NULL);
+insert into Table8 values(5,'SI',NULL)
+                                 *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("GSKD"."TABLE8"."LOCATION")
+
+
+SQL>

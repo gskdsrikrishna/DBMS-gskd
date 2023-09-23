@@ -1,0 +1,130 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Fri Mar 24 19:08:33 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn system
+Enter password:
+Connected.
+SQL> create table Table15(ID number,Name varchar2(10),Job varchar2(10),Salary number);
+
+Table created.
+
+SQL> desc Table15;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER
+ NAME                                               VARCHAR2(10)
+ JOB                                                VARCHAR2(10)
+ SALARY                                             NUMBER
+
+SQL> insert into Table15 values(&ID,'&Name','&Job',&Salary);
+Enter value for id: 1
+Enter value for name: Bhuvana
+Enter value for job: CEO
+Enter value for salary: 100000
+old   1: insert into Table15 values(&ID,'&Name','&Job',&Salary)
+new   1: insert into Table15 values(1,'Bhuvana','CEO',100000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for name: Indu
+Enter value for job: PA
+Enter value for salary: 50000
+old   1: insert into Table15 values(&ID,'&Name','&Job',&Salary)
+new   1: insert into Table15 values(2,'Indu','PA',50000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: Gskd
+Enter value for job: Manager
+Enter value for salary: 200000
+old   1: insert into Table15 values(&ID,'&Name','&Job',&Salary)
+new   1: insert into Table15 values(3,'Gskd','Manager',200000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 4
+Enter value for name: Vijay
+Enter value for job: PA
+Enter value for salary: 60000
+old   1: insert into Table15 values(&ID,'&Name','&Job',&Salary)
+new   1: insert into Table15 values(4,'Vijay','PA',60000)
+
+1 row created.
+
+SQL> select * from Table15;
+
+        ID NAME       JOB            SALARY
+---------- ---------- ---------- ----------
+         1 Bhuvana    CEO            100000
+         2 Indu       PA              50000
+         3 Gskd       Manager        200000
+         4 Vijay      PA              60000
+
+SQL> select Job,avg(Salary) from Table15 group by Job;
+
+JOB        AVG(SALARY)
+---------- -----------
+Manager         200000
+CEO             100000
+PA               55000
+
+SQL> select ID,avg(Salary) from Table15 group by ID having count(*)>=2;
+
+no rows selected
+
+SQL> insert into Table15 values(5,'Chinna','Clerk',10000);
+
+1 row created.
+
+SQL> select ID,avg(Salary) from Table15 group by ID having count(*)>=2;
+
+no rows selected
+
+SQL> select ID,avg(Salary) from Table15 group by ID having count(*)<=2;
+
+        ID AVG(SALARY)
+---------- -----------
+         1      100000
+         2       50000
+         4       60000
+         5       10000
+         3      200000
+
+SQL> select Name from Table15 where Salary>(select min(Salary) from Table15 where ID=3);
+
+no rows selected
+
+SQL> select Name from Table15 where Salary>(select min(Salary) from Table15 where Salary=50000);
+
+NAME
+----------
+Bhuvana
+Gskd
+Vijay
+
+SQL> select sign(-145),sign(0),sign(145) from dual;
+
+SIGN(-145)    SIGN(0)  SIGN(145)
+---------- ---------- ----------
+        -1          0          1
+
+SQL> select to_date('05/24/2003','MM/DD/YYYY')-to_date('01/01/2010','MM/DD/YYYY') "Days" from dual;
+
+      Days
+----------
+     -2414
+
+SQL> select to_date('01/01/2010','MM/DD/YYYY')-to_date('05/24/2003','MM/DD/YYYY') "Days" from dual;
+
+      Days
+----------
+      2414
+
+SQL>

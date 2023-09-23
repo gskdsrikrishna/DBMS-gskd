@@ -1,0 +1,45 @@
+SQL*Plus: Release 10.2.0.1.0 - Production on Thu Mar 23 15:42:13 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn System
+Enter password:
+Connected.
+SQL> create table Table11(ID number,Name varchar2(10));
+
+Table created.
+
+SQL> insert into Table11 values(1,'Gskd');
+
+1 row created.
+
+SQL> insert into Table11 values(2,'SI');
+
+1 row created.
+
+SQL> grant connect,resource,dba to Vijay;
+
+Grant succeeded.
+
+SQL> select * from Table11;
+
+        ID NAME
+---------- ----------
+         1 Gskd
+         2 SI
+
+SQL> grant insert,select,update,delete on Table11 to Vijay;
+
+Grant succeeded.
+
+SQL> grant select on Table11 to Vijay with grant option;
+
+Grant succeeded.
+
+SQL> revoke insert on Table11 from Vijay;
+
+Revoke succeeded.
+
+SQL> alter user Vijay identified by vijay;
+
+User altered.
